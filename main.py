@@ -8,9 +8,17 @@ from util import get_limits
 #red = [0, 0, 255]
 yellow = [0, 255, 255]
 
+# To use a video
+video_path = './test.mp4'
+cap = cv2.VideoCapture(video_path)
 
+if not cap.isOpened():
+    print("Error: Could not open video.")
+    exit()
 
-cap = cv2.VideoCapture(0)
+# To use webcam
+#cap = cv2.VideoCapture(0)
+
 while True:
     success, img = cap.read()
 
@@ -33,7 +41,7 @@ while True:
 
         img = cv2.rectangle(img, (x1, y1), (x2, y2), (0,255,0), 5)
 
-    cv2.imshow('Image', img)
+    cv2.imshow('Image', mask)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
