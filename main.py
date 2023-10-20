@@ -1,4 +1,5 @@
 import cv2
+import imageio
 from PIL import Image
 
 from util import get_limits
@@ -18,6 +19,8 @@ if not cap.isOpened():
 
 # To use webcam
 #cap = cv2.VideoCapture(0)
+
+frames = []
 
 while True:
     success, img = cap.read()
@@ -41,11 +44,14 @@ while True:
 
         img = cv2.rectangle(img, (x1, y1), (x2, y2), (0,255,0), 5)
 
-    cv2.imshow('Image', mask)
+    cv2.imshow('Image', img)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
+
+output_gif_path = 'output.gif'
+imageio.mimsave(output_gif_path, frames, format='GIF', duration=0.1)
 
 cv2.destroyAllWindows()
